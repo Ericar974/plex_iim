@@ -15,7 +15,7 @@ services:
     volumes:
       - ./downloads:/downloads
     ports:
-      - "32400:32400"
+      - "32401:32400"
 
   qbittorrent:
     image: linuxserver/qbittorrent
