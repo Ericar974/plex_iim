@@ -1,0 +1,35 @@
+name: Docker Deploy
+
+on:
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    services:
+      plex:
+        image: lscr.io/linuxserver/plex:latest
+        ports:
+          - 32400:32400
+      qbittorrent:
+        image: linuxserver/qbittorrent
+        ports:
+          - 8080:8080
+          - 6881:6881
+      sonnar:
+        image: linuxserver/sonarr
+        ports:
+          - 8989:8989
+    steps:
+      - name: run plex
+        run: docker-compose up -d
+
+      - name: run qbittorrent
+        run: docker-compose up -d
+
+      - name: run sonarr
+        run: docker-compose up -d
+
+
+
