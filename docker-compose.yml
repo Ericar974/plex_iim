@@ -13,8 +13,7 @@ services:
       - PLEX_CLAIM= #optional
     restart: unless-stopped
     volumes:
-      - /Vidéos/plex:/config
-      - /Vidéos:/data/videos
+      - ./downloads:/downloads
     ports:
       - "32400:32400"
 
@@ -26,8 +25,8 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /torrents:/downloads
-      - /qbittorrent:/config
+      - ./downloads:/downloads
+      - ./qbittorrent:/config
     ports:
       - "8080:8080"
       - "6881:6881"
@@ -40,7 +39,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - /series:/tv
-      - /sonarr:/config
+      - ./sonarr:/config
+      - ./downloads:/downloads
     ports:
       - "8989:8989"
