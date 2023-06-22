@@ -1,0 +1,46 @@
+version: '3'
+
+services:
+  plex:
+    image: lscr.io/linuxserver/plex:latest
+    container_name: plex_1
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+      - VERSION=latest
+      - PLEX_CLAIM= #optional
+    restart: unless-stopped
+    volumes:
+      - /Vidéos/plex:/config
+      - /Vidéos:/data/videos
+    ports:
+      - "32400:32400"
+
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    container_name: qbittorrent_1
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /torrents:/downloads
+      - /qbittorrent:/config
+    ports:
+      - "8080:8080"
+      - "6881:6881"
+
+  sonarr:
+    image: linuxserver/sonarr
+    container_name: sonarr_1
+    restart: always
+    environment:
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /series:/tv
+      - /sonarr:/config
+    ports:
+      - "8989:8989"
